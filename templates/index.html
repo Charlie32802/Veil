@@ -1,227 +1,251 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Veil – Uncover the truth behind every click in this interactive educational game focused on fake news and scam awareness."/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Veil – Uncover the truth behind every click in this interactive educational game focused on fake news and scam awareness." />
   <title>Veil – Uncover the Truth</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{% static 'css/index.css' %}"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/index.css' %}" />
 </head>
+
 <body>
 
-<!-- Digital Animated Background -->
-<div class="digital-bg"></div>
-<div class="digital-glow"></div>
-<div class="scanline"></div>
+  <!-- Digital Animated Background -->
+  <div class="digital-bg"></div>
+  <div class="digital-glow"></div>
+  <div class="scanline"></div>
 
-<!-- Gear settings button -->
-<button class="settings-btn" id="settingsBtn" aria-label="Settings">
-  <div class="gear-ping"></div>
-  <div class="gear-ring"></div>
-  <div class="gear-bg"></div>
-  <svg class="gear-icon" width="26" height="26" viewBox="0 0 24 24" fill="none">
-    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33
+  <!-- Gear settings button -->
+  <button class="settings-btn" id="settingsBtn" aria-label="Settings">
+    <div class="gear-ping"></div>
+    <div class="gear-ring"></div>
+    <div class="gear-bg"></div>
+    <svg class="gear-icon" width="26" height="26" viewBox="0 0 24 24" fill="none">
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33
              1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33
              l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0
              0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06
              A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51
              1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9
-             a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"
-          stroke="#00e676" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="12" cy="12" r="3" stroke="#00e676" stroke-width="1.6"/>
-    <circle cx="12" cy="12" r="2.2" fill="rgba(0,230,118,0.15)"/>
-  </svg>
-</button>
+             a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" stroke="#00e676" stroke-width="1.6"
+        stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="12" cy="12" r="3" stroke="#00e676" stroke-width="1.6" />
+      <circle cx="12" cy="12" r="2.2" fill="rgba(0,230,118,0.15)" />
+    </svg>
+  </button>
 
-<!-- Dim overlay -->
-<div class="overlay" id="overlay"></div>
+  <!-- Dim overlay -->
+  <div class="overlay" id="overlay"></div>
 
-<!-- Settings modal -->
-<div class="settings-modal" id="settingsModal">
-  <div class="modal-accent"></div>
+  <!-- Settings modal -->
+  <div class="settings-modal" id="settingsModal">
+    <div class="modal-accent"></div>
 
-  <div class="modal-header">
-    <span class="modal-title">Settings</span>
-    <button class="modal-close" id="modalClose">✕</button>
-  </div>
+    <div class="modal-header">
+      <span class="modal-title">Settings</span>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
 
-  <!-- Audio section -->
-  <div class="section-label">Audio</div>
-  <div class="slider-row">
+    <!-- Audio section -->
+    <div class="section-label">Audio</div>
+    <div class="slider-row">
 
-    <div class="slider-item">
-      <div class="slider-meta">
-        <span class="slider-name">Music Volume</span>
-        <span class="slider-value" id="val-music">70</span>
+      <div class="slider-item">
+        <div class="slider-meta">
+          <span class="slider-name">Music Volume</span>
+          <span class="slider-value" id="val-music">70</span>
+        </div>
+        <input type="range" class="veil-slider" id="sl-music" min="0" max="100" value="70" />
       </div>
-      <input type="range" class="veil-slider" id="sl-music" min="0" max="100" value="70"/>
-    </div>
 
-    <div class="slider-item">
-      <div class="slider-meta">
-        <span class="slider-name">SFX Volume</span>
-        <span class="slider-value" id="val-sfx">60</span>
+      <div class="slider-item">
+        <div class="slider-meta">
+          <span class="slider-name">SFX Volume</span>
+          <span class="slider-value" id="val-sfx">60</span>
+        </div>
+        <input type="range" class="veil-slider" id="sl-sfx" min="0" max="100" value="60" />
       </div>
-      <input type="range" class="veil-slider" id="sl-sfx" min="0" max="100" value="60"/>
+
     </div>
 
-  </div>
-
-  <!-- Controls section -->
-  <div class="section-label">Controls</div>
-  <div class="controls-empty">
-    <span>Coming soon</span>
-  </div>
-</div>
-
-<!-- Main content -->
-<header class="header">
-  <h1>VEIL<span>.</span></h1>
-  <p class="sub-text">Uncover the truth behind every click</p>
-</header>
-
-<nav class="menu">
-  <div class="row">
-    <button class="mag-btn" id="loginBtn">
-      <svg width="220" height="220" viewBox="0 0 250 250">
-        <defs>
-          <radialGradient id="blueGlass" cx="30%" cy="30%" r="70%">
-            <stop offset="0%" stop-color="#42a5f5"/>
-            <stop offset="100%" stop-color="#1565c0"/>
-          </radialGradient>
-        </defs>
-        <g transform="rotate(45, 80, 80)">
-          <rect x="135" y="72" width="20" height="16" fill="#2a3d52"/>
-          <rect x="155" y="60" width="75" height="40" rx="8" fill="#0d1a2a" stroke="#00e676" stroke-width="2"/>
-        </g>
-        <circle cx="80" cy="80" r="60" fill="#1e2e3e" stroke="#00e676" stroke-width="4"/>
-        <circle cx="80" cy="80" r="48" fill="url(#blueGlass)"/>
-      </svg>
-      <div class="label"><span>Login</span></div>
-    </button>
-
-    <button class="mag-btn" id="signupBtn">
-      <svg width="220" height="220" viewBox="0 0 250 250">
-        <defs>
-          <radialGradient id="blueGlass2" cx="30%" cy="30%" r="70%">
-            <stop offset="0%" stop-color="#42a5f5"/>
-            <stop offset="100%" stop-color="#1565c0"/>
-          </radialGradient>
-        </defs>
-        <g transform="rotate(45, 80, 80)">
-          <rect x="135" y="72" width="20" height="16" fill="#2a3d52"/>
-          <rect x="155" y="60" width="75" height="40" rx="8" fill="#0d1a2a" stroke="#00e676" stroke-width="2"/>
-        </g>
-        <circle cx="80" cy="80" r="60" fill="#1e2e3e" stroke="#00e676" stroke-width="4"/>
-        <circle cx="80" cy="80" r="48" fill="url(#blueGlass2)"/>
-      </svg>
-      <div class="label"><span>Signup</span></div>
-    </button>
-
-    <button class="mag-btn" id="aboutBtn">
-      <svg width="220" height="220" viewBox="0 0 250 250">
-        <defs>
-          <radialGradient id="blueGlass3" cx="30%" cy="30%" r="70%">
-            <stop offset="0%" stop-color="#42a5f5"/>
-            <stop offset="100%" stop-color="#1565c0"/>
-          </radialGradient>
-        </defs>
-        <g transform="rotate(45, 80, 80)">
-          <rect x="135" y="72" width="20" height="16" fill="#2a3d52"/>
-          <rect x="155" y="60" width="75" height="40" rx="8" fill="#0d1a2a" stroke="#00e676" stroke-width="2"/>
-        </g>
-        <circle cx="80" cy="80" r="60" fill="#1e2e3e" stroke="#00e676" stroke-width="4"/>
-        <circle cx="80" cy="80" r="48" fill="url(#blueGlass3)"/>
-      </svg>
-      <div class="label"><span>About</span></div>
-    </button>
-  </div>
-</nav>
-
-<!-- Login modal -->
-<div class="settings-modal centered-modal" id="loginModal">
-  <div class="modal-accent"></div>
-  <div class="modal-header">
-    <span class="modal-title">Access</span>
-    <button class="modal-close modalCloseBtn">✕</button>
-  </div>
-  <form class="auth-form" onsubmit="event.preventDefault()">
-    <div class="input-group">
-      <input type="email" id="logEmail" class="modal-input" placeholder=" " required />
-      <label for="logEmail" class="floating-label">Email Address</label>
+    <!-- Controls section -->
+    <div class="section-label">Controls</div>
+    <div class="controls-empty">
+      <span>Coming soon</span>
     </div>
-    <div class="input-group">
-      <input type="password" id="logPass" class="modal-input" placeholder=" " required />
-      <label for="logPass" class="floating-label">Password</label>
-      <button type="button" class="toggle-password" aria-label="Toggle password visibility">
-        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+  </div>
+
+  <!-- Main content -->
+  <header class="header">
+    <h1>VEIL<span>.</span></h1>
+    <p class="sub-text">Uncover the truth behind every click</p>
+  </header>
+
+  <nav class="menu">
+    <div class="row">
+      <button class="mag-btn" id="loginBtn">
+        <svg width="220" height="220" viewBox="0 0 250 250">
+          <defs>
+            <radialGradient id="blueGlass" cx="30%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#42a5f5" />
+              <stop offset="100%" stop-color="#1565c0" />
+            </radialGradient>
+          </defs>
+          <g transform="rotate(45, 80, 80)">
+            <rect x="135" y="72" width="20" height="16" fill="#2a3d52" />
+            <rect x="155" y="60" width="75" height="40" rx="8" fill="#0d1a2a" stroke="#00e676" stroke-width="2" />
+          </g>
+          <circle cx="80" cy="80" r="60" fill="#1e2e3e" stroke="#00e676" stroke-width="4" />
+          <circle cx="80" cy="80" r="48" fill="url(#blueGlass)" />
+        </svg>
+        <div class="label"><span>Login</span></div>
+      </button>
+
+      <button class="mag-btn" id="signupBtn">
+        <svg width="220" height="220" viewBox="0 0 250 250">
+          <defs>
+            <radialGradient id="blueGlass2" cx="30%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#42a5f5" />
+              <stop offset="100%" stop-color="#1565c0" />
+            </radialGradient>
+          </defs>
+          <g transform="rotate(45, 80, 80)">
+            <rect x="135" y="72" width="20" height="16" fill="#2a3d52" />
+            <rect x="155" y="60" width="75" height="40" rx="8" fill="#0d1a2a" stroke="#00e676" stroke-width="2" />
+          </g>
+          <circle cx="80" cy="80" r="60" fill="#1e2e3e" stroke="#00e676" stroke-width="4" />
+          <circle cx="80" cy="80" r="48" fill="url(#blueGlass2)" />
+        </svg>
+        <div class="label"><span>Signup</span></div>
+      </button>
+
+      <button class="mag-btn" id="aboutBtn">
+        <svg width="220" height="220" viewBox="0 0 250 250">
+          <defs>
+            <radialGradient id="blueGlass3" cx="30%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#42a5f5" />
+              <stop offset="100%" stop-color="#1565c0" />
+            </radialGradient>
+          </defs>
+          <g transform="rotate(45, 80, 80)">
+            <rect x="135" y="72" width="20" height="16" fill="#2a3d52" />
+            <rect x="155" y="60" width="75" height="40" rx="8" fill="#0d1a2a" stroke="#00e676" stroke-width="2" />
+          </g>
+          <circle cx="80" cy="80" r="60" fill="#1e2e3e" stroke="#00e676" stroke-width="4" />
+          <circle cx="80" cy="80" r="48" fill="url(#blueGlass3)" />
+        </svg>
+        <div class="label"><span>About</span></div>
       </button>
     </div>
-    <button type="submit" class="modal-btn">LOGIN</button>
-  </form>
-  <div class="modal-switch-text">Don't have an account? <span id="switchToSignup">Signup</span></div>
-</div>
+  </nav>
 
-<!-- Signup modal -->
-<div class="settings-modal centered-modal" id="signupModal">
-  <div class="modal-accent"></div>
-  <div class="modal-header">
-    <span class="modal-title">Join</span>
-    <button class="modal-close modalCloseBtn">✕</button>
-  </div>
-  <form class="auth-form" onsubmit="event.preventDefault()">
-    <div class="input-group">
-      <input type="text" id="regUser" class="modal-input" placeholder=" " required />
-      <label for="regUser" class="floating-label">Username</label>
+  <!-- Login modal -->
+  <div class="settings-modal centered-modal" id="loginModal">
+    <div class="modal-accent"></div>
+    <div class="modal-header">
+      <span class="modal-title">Access</span>
+      <button class="modal-close modalCloseBtn">✕</button>
     </div>
-    <div class="input-group">
-      <input type="email" id="regEmail" class="modal-input" placeholder=" " required />
-      <label for="regEmail" class="floating-label">Email Address</label>
-    </div>
-    <div class="input-group">
-      <div class="birthdate-inputs">
-        <input type="number" id="bdMonth" class="modal-input bd-input" placeholder="MM" min="1" max="12" />
-        <input type="number" id="bdDay" class="modal-input bd-input" placeholder="DD" min="1" max="31" />
-        <input type="number" id="bdYear" class="modal-input bd-input" placeholder="YYYY" min="1900" max="2100" />
+    <form class="auth-form" onsubmit="event.preventDefault()">
+      <div class="input-group">
+        <input type="email" id="logEmail" class="modal-input" placeholder=" " required />
+        <label for="logEmail" class="floating-label">Email Address</label>
       </div>
-      <label class="floating-label always-top">Birthdate</label>
-    </div>
-    <div class="input-group">
-      <input type="password" id="regPass" class="modal-input" placeholder=" " required />
-      <label for="regPass" class="floating-label">Password</label>
-      <button type="button" class="toggle-password" aria-label="Toggle password visibility">
-        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-      </button>
-    </div>
-    <div class="input-group">
-      <input type="password" id="regPassConf" class="modal-input" placeholder=" " required />
-      <label for="regPassConf" class="floating-label">Confirm Password</label>
-      <button type="button" class="toggle-password" aria-label="Toggle password visibility">
-        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-      </button>
-    </div>
-    <button type="submit" class="modal-btn">SIGNUP</button>
-    <div class="google-auth-text">or <span class="gmail-link">Sign up with Gmail <svg class="gmail-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="16" height="16"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></span></div>
-  </form>
-  <div class="modal-switch-text">Already have an account? <span id="switchToLogin">Login</span></div>
-</div>
-
-<!-- About modal -->
-<div class="settings-modal centered-modal" id="aboutModal">
-  <div class="modal-accent"></div>
-  <div class="modal-header">
-    <span class="modal-title">About</span>
-    <button class="modal-close modalCloseBtn">✕</button>
+      <div class="input-group">
+        <input type="password" id="logPass" class="modal-input" placeholder=" " required />
+        <label for="logPass" class="floating-label">Password</label>
+        <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+          </svg>
+        </button>
+      </div>
+      <button type="submit" class="modal-btn">LOGIN</button>
+    </form>
+    <div class="modal-switch-text">Don't have an account? <span id="switchToSignup">Signup</span></div>
   </div>
-  <div class="controls-empty">
-    <span>Coming soon</span>
-  </div>
-</div>
 
-<script src="{% static 'js/index.js' %}" defer></script>
+  <!-- Signup modal -->
+  <div class="settings-modal centered-modal" id="signupModal">
+    <div class="modal-accent"></div>
+    <div class="modal-header">
+      <span class="modal-title">Join</span>
+      <button class="modal-close modalCloseBtn">✕</button>
+    </div>
+    <form class="auth-form" onsubmit="event.preventDefault()">
+      <div class="input-group">
+        <input type="text" id="regUser" class="modal-input" placeholder=" " required />
+        <label for="regUser" class="floating-label">Username</label>
+      </div>
+      <div class="input-group">
+        <input type="email" id="regEmail" class="modal-input" placeholder=" " required />
+        <label for="regEmail" class="floating-label">Email Address</label>
+      </div>
+      <div class="input-group">
+        <div class="birthdate-inputs">
+          <input type="number" id="bdMonth" class="modal-input bd-input" placeholder="MM" min="1" max="12" />
+          <input type="number" id="bdDay" class="modal-input bd-input" placeholder="DD" min="1" max="31" />
+          <input type="number" id="bdYear" class="modal-input bd-input" placeholder="YYYY" min="1900" max="2100" />
+        </div>
+        <label class="floating-label always-top">Birthdate</label>
+      </div>
+      <div class="input-group">
+        <input type="password" id="regPass" class="modal-input" placeholder=" " required />
+        <label for="regPass" class="floating-label">Password</label>
+        <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+          </svg>
+        </button>
+      </div>
+      <div class="input-group">
+        <input type="password" id="regPassConf" class="modal-input" placeholder=" " required />
+        <label for="regPassConf" class="floating-label">Confirm Password</label>
+        <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+          </svg>
+        </button>
+      </div>
+      <button type="submit" class="modal-btn">SIGNUP</button>
+      <div class="google-auth-text">or <span class="gmail-link">Sign up with Gmail <svg class="gmail-icon"
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="16" height="16">
+            <path fill="#EA4335"
+              d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+            <path fill="#4285F4"
+              d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+            <path fill="#FBBC05"
+              d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
+            <path fill="#34A853"
+              d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
+          </svg></span></div>
+    </form>
+    <div class="modal-switch-text">Already have an account? <span id="switchToLogin">Login</span></div>
+  </div>
+
+  <!-- About modal -->
+  <div class="settings-modal centered-modal" id="aboutModal">
+    <div class="modal-accent"></div>
+    <div class="modal-header">
+      <span class="modal-title">About</span>
+      <button class="modal-close modalCloseBtn">✕</button>
+    </div>
+    <div class="controls-empty">
+      <span>Coming soon</span>
+    </div>
+  </div>
+
+  <script src="{% static 'js/index.js' %}" defer></script>
 </body>
+
 </html>
