@@ -7,23 +7,11 @@
 }
 
 :root {
-  /* 
-   * ==========================================
-   * CYBERPUNK BACKGROUND THEME VARIABLES
-   * Change these colors to customize the scene
-   * ==========================================
-   */
   --bg-top: #160431;
-  /* Top gradient color */
   --bg-bottom: #050111;
-  /* Bottom gradient color */
   --grid-pink: rgba(0, 255, 64, 0.466);
-  /* Grid vertical lines */
   --grid-cyan: rgba(0, 200, 255, 0.501);
-  /* Grid horizontal lines */
   --glow-core: rgba(0, 64, 255, 0.712);
-  /* Center pulsing glow */
-
   --bg: #0037c3;
   --teal: #00e676;
 }
@@ -39,7 +27,6 @@ body {
   overflow: hidden;
 }
 
-/* ── Gear button ── */
 .settings-btn {
   position: fixed;
   top: 22px;
@@ -60,8 +47,7 @@ body {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 1.5px solid rgba(0, 230, 118, 0.0);
-  box-shadow: 0 0 0px rgba(0, 230, 118, 0);
+  border: 1.5px solid transparent;
   transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
 }
 
@@ -75,7 +61,6 @@ body {
   position: absolute;
   inset: 4px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 230, 118, 0.0) 0%, rgba(0, 230, 118, 0.0) 100%);
   transition: background 0.35s ease;
 }
 
@@ -87,7 +72,6 @@ body {
   position: relative;
   z-index: 1;
   transition: transform 0.3s ease, filter 0.3s ease;
-  filter: drop-shadow(0 0 0px rgb(0, 230, 119));
 }
 
 .settings-btn:hover .gear-icon {
@@ -125,7 +109,6 @@ body {
   animation: ping 1s ease-out infinite;
 }
 
-/* ── Digital Thematic Backgrounds ── */
 .digital-bg {
   position: fixed;
   inset: -150px;
@@ -135,10 +118,8 @@ body {
     linear-gradient(90deg, var(--grid-cyan) 2px, transparent 2px);
   background-size: 150px 150px;
   pointer-events: none;
-  /* Hardware accelerated 3D sliding ensures 0 frame repaints for buttery smooth movement */
   animation: gridMove 15s linear infinite;
   will-change: transform;
-  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
@@ -156,7 +137,6 @@ body {
   position: fixed;
   inset: 0;
   z-index: -9;
-  /* Simplified to a single static center glow to drastically save GPU fill-rate */
   background: radial-gradient(circle at center, var(--glow-core) 0%, transparent 70%);
   opacity: 0.8;
   pointer-events: none;
@@ -178,12 +158,10 @@ body {
   position: fixed;
   inset: 0;
   z-index: -8;
-  /* Switched to repeating-linear-gradient which is faster to render */
   background: repeating-linear-gradient(to bottom, transparent, transparent 2px, rgba(0, 0, 0, 0.12) 2px, rgba(0, 0, 0, 0.12) 4px);
   pointer-events: none;
 }
 
-/* ── Header ── */
 .header {
   text-align: center;
   margin-bottom: 30px;
@@ -212,12 +190,10 @@ body {
   transform: translateX(-1.5em);
 }
 
-/* ── Menu ── */
 .menu {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
 }
 
 .row {
@@ -240,19 +216,18 @@ body {
   width: 220px;
   height: 220px;
   will-change: transform;
-  filter: drop-shadow(0 12px 24px rgb(0, 230, 118, 0.8)) drop-shadow(0 0 20px rgba(0, 230, 118, 0.5));
+  filter: drop-shadow(0 8px 18px rgba(0, 230, 118, 0.6));
   transition: transform 0.18s ease, filter 0.18s ease;
 }
 
 .mag-btn:hover {
   transform: scale(1.08);
-  filter: drop-shadow(0 18px 36px rgba(0, 230, 118, 0.8)) drop-shadow(0 0 40px rgba(0, 230, 118, 0.8));
+  filter: drop-shadow(0 12px 28px rgba(0, 230, 118, 0.75));
 }
 
 .mag-btn:active {
   transform: scale(0.95);
-  /* Scale down when pressed */
-  filter: drop-shadow(0 6px 12px rgba(0, 230, 118, 0.8)) drop-shadow(0 0 12px rgba(0, 230, 118, 0.3));
+  filter: drop-shadow(0 4px 10px rgba(0, 230, 118, 0.4));
 }
 
 .label {
@@ -276,12 +251,10 @@ body {
   text-transform: uppercase;
 }
 
-/* ── Overlay ── */
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 4, 30, 0.75);
-  backdrop-filter: blur(3px);
+  background: rgba(0, 4, 30, 0.82);
   z-index: 200;
   opacity: 0;
   pointer-events: none;
@@ -293,7 +266,6 @@ body {
   pointer-events: all;
 }
 
-/* ── Settings modal (CoC pop near gear) ── */
 @keyframes cocPop {
   0% {
     transform: scale(0.85);
@@ -327,10 +299,7 @@ body {
   background: linear-gradient(160deg, #030e4a 0%, #010830 100%);
   border: 1px solid rgba(0, 230, 118, 0.2);
   border-radius: 16px;
-  box-shadow:
-    0 0 40px rgba(0, 230, 118, 0.08),
-    0 24px 60px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 rgba(0, 230, 118, 0.1);
+  box-shadow: 0 0 40px rgba(0, 230, 118, 0.08), 0 24px 60px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(0, 230, 118, 0.1);
   padding: 24px 22px 28px;
   z-index: 250;
   visibility: hidden;
@@ -349,7 +318,6 @@ body {
   animation: cocClose 0.2s ease-in forwards;
 }
 
-/* top accent bar */
 .modal-accent {
   position: absolute;
   top: 0;
@@ -397,7 +365,6 @@ body {
   background: rgba(0, 230, 118, 0.08);
 }
 
-/* ── Section label ── */
 .section-label {
   font-family: 'Orbitron', sans-serif;
   font-size: 0.65rem;
@@ -417,7 +384,6 @@ body {
   background: linear-gradient(90deg, rgba(0, 230, 118, 0.3), transparent);
 }
 
-/* ── Sliders ── */
 .slider-row {
   display: flex;
   flex-direction: column;
@@ -454,7 +420,6 @@ body {
   text-align: right;
 }
 
-/* custom range track */
 .veil-slider {
   -webkit-appearance: none;
   appearance: none;
@@ -494,7 +459,6 @@ body {
   cursor: pointer;
 }
 
-/* ── Controls section ── */
 .controls-empty {
   height: 48px;
   border: 1px dashed rgba(0, 230, 118, 0.12);
@@ -512,7 +476,6 @@ body {
   text-transform: uppercase;
 }
 
-/* ── Centered Modals ── */
 .centered-modal {
   top: 50%;
   left: 50%;
@@ -556,7 +519,6 @@ body {
   }
 }
 
-/* ── Auth Forms ── */
 .auth-form {
   display: flex;
   flex-direction: column;
@@ -601,13 +563,7 @@ body {
 }
 
 .modal-input:focus~.floating-label,
-.modal-input:not(:placeholder-shown)~.floating-label {
-  top: 0;
-  font-size: 0.8rem;
-  color: var(--teal);
-  background: #020b34;
-}
-
+.modal-input:not(:placeholder-shown)~.floating-label,
 .modal-input[type="date"]~.floating-label {
   top: 0;
   font-size: 0.8rem;
@@ -652,8 +608,12 @@ body {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
   margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .modal-btn:hover {
@@ -662,13 +622,17 @@ body {
   box-shadow: 0 0 15px rgba(0, 230, 118, 0.4);
 }
 
+.modal-btn:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
 .modal-switch-text {
   text-align: center;
   font-family: 'Rajdhani', sans-serif;
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.5);
   margin-top: 20px;
-  transition: color 0.2s;
 }
 
 .modal-switch-text span {
@@ -684,7 +648,6 @@ body {
   text-decoration-color: var(--teal);
 }
 
-/* ── Custom Game-UI Birthdate & Gmail Auth ── */
 .birthdate-inputs {
   display: flex;
   gap: 12px;
@@ -706,7 +669,6 @@ body {
 
 .bd-input[type=number] {
   -moz-appearance: textfield;
-  appearance: textfield;
 }
 
 .floating-label.always-top {
@@ -724,18 +686,21 @@ body {
   margin-top: -6px;
 }
 
-.google-auth-text .gmail-link {
+.gmail-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   color: #fff;
   cursor: pointer;
+  font-weight: 700;
   text-decoration: underline;
   text-decoration-color: transparent;
-  transition: all 0.2s;
-  font-weight: 700;
+  transition: color 0.2s, text-decoration-color 0.2s;
 }
 
-.google-auth-text .gmail-link:hover {
+.gmail-link:hover {
   color: #ea4335;
-  /* Google Red */
   text-decoration-color: #ea4335;
 }
 
@@ -746,3 +711,84 @@ body {
   background: #fff;
   border-radius: 50%;
   padding: 2px;
+}
+
+.google-btn-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.google-btn-overlay iframe {
+  transform: scale(3);
+  transform-origin: left center;
+  pointer-events: all;
+}
+
+.modal-input::-ms-reveal,
+.modal-input::-ms-clear {
+  display: none;
+}
+
+.toast-container {
+  position: fixed;
+  top: 1.1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  pointer-events: none;
+}
+
+.toast {
+  background: rgba(10, 20, 32, 0.96);
+  border: 1px solid #00e676;
+  color: #00e676;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.55rem 1.5rem;
+  border-radius: 3px;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.toast.toast--error {
+  border-color: #ff1744;
+  color: #ff1744;
+}
+
+.toast.toast--success {
+  border-color: #00e676;
+  color: #00e676;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.btn-spinner {
+  width: 13px;
+  height: 13px;
+  border: 2px solid rgba(0, 230, 118, 0.25);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: spin 0.65s linear infinite;
+}
