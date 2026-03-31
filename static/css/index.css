@@ -1014,8 +1014,8 @@ body {
 
 .mode-card {
   position: relative;
-  width: 340px;
-  height: 280px;
+  width: 420px;
+  height: 360px;
   background: linear-gradient(160deg, #030e4a 0%, #010830 100%);
   border: 1px solid rgba(0, 230, 118, 0.2);
   border-radius: 16px;
