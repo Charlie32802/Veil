@@ -6,6 +6,17 @@
   padding: 0;
 }
 
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 :root {
   --bg-top: #160431;
   --bg-bottom: #050111;
@@ -917,16 +928,396 @@ body {
   width: 100%;
 }
 
-#howToPlayBackBtn {
+#howToPlayBackBtn,
+#singleModeBackBtn {
   background: transparent !important;
   color: var(--teal) !important;
   border: none !important;
   outline: none !important;
 }
 
-#howToPlayBackBtn:hover {
+#howToPlayBackBtn:hover,
+#singleModeBackBtn:hover {
   background: rgba(255, 255, 255, 0.12) !important;
   color: var(--teal) !important;
   border: none !important;
   border-radius: 6px !important;
+}
+
+/* ═══════════════════════════════════════════════════
+   SINGLE MODE — Back Button
+═══════════════════════════════════════════════════ */
+
+.sm-back-btn {
+  position: absolute;
+  left: 24px;
+  top: 24px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--teal);
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s ease;
+}
+
+.sm-back-btn:hover {
+  background: rgba(0, 230, 118, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════
+   SINGLE MODE — Content Container
+═══════════════════════════════════════════════════ */
+
+.single-mode-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 80px 24px 48px;
+  gap: 36px;
+}
+
+.single-mode-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  letter-spacing: 0.35em;
+  padding-left: 0.35em;
+  color: #fff;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.single-mode-title .title-accent {
+  color: var(--teal);
+  text-shadow: 0 0 22px rgba(0, 230, 118, 0.55);
+}
+
+/* ═══════════════════════════════════════════════════
+   SINGLE MODE — Mode Cards
+═══════════════════════════════════════════════════ */
+
+.mode-cards-row {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.mode-card {
+  position: relative;
+  width: 340px;
+  height: 280px;
+  background: linear-gradient(160deg, #030e4a 0%, #010830 100%);
+  border: 1px solid rgba(0, 230, 118, 0.2);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.mode-card:hover {
+  border-color: rgba(0, 230, 118, 0.5);
+  box-shadow: 0 0 24px rgba(0, 230, 118, 0.1), 0 8px 28px rgba(0, 0, 0, 0.5);
+  transform: translateY(-4px);
+}
+
+/* Active / selected state */
+.mode-card.card-active,
+.mode-card.selected {
+  border-color: var(--teal);
+  box-shadow:
+    0 0 0 1px var(--teal),
+    0 0 32px rgba(0, 230, 118, 0.25),
+    0 8px 32px rgba(0, 0, 0, 0.5);
+  transform: translateY(-4px);
+}
+
+.card-active-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--teal), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mode-card.card-active .card-active-bar,
+.mode-card.selected .card-active-bar {
+  opacity: 1;
+}
+
+.card-inner-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 40% 35%, rgba(0, 230, 118, 0.07) 0%, transparent 65%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mode-card:hover .card-inner-glow,
+.mode-card.card-active .card-inner-glow,
+.mode-card.selected .card-inner-glow {
+  opacity: 1;
+}
+
+.card-body-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  z-index: 1;
+}
+
+.card-icon {
+  color: rgba(0, 230, 118, 0.45);
+  transition: color 0.3s ease, filter 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mode-card:hover .card-icon,
+.mode-card.card-active .card-icon {
+  color: var(--teal);
+  filter: drop-shadow(0 0 8px rgba(0, 230, 118, 0.6));
+}
+
+.card-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.3s ease;
+  text-align: center;
+}
+
+.mode-card:hover .card-label,
+.mode-card.card-active .card-label,
+.mode-card.selected .card-label {
+  color: #fff;
+}
+
+/* ═══════════════════════════════════════════════════
+   SINGLE MODE — Difficulty (hidden → fade in on select)
+═══════════════════════════════════════════════════ */
+
+.difficulty-section {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.difficulty-section.visible {
+  display: flex;
+  animation: fadeSlideUp 0.35s ease forwards;
+}
+
+.difficulty-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  color: rgba(0, 230, 118, 0.55);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.difficulty-label::before,
+.difficulty-label::after {
+  content: '';
+  width: 48px;
+  height: 1px;
+}
+
+.difficulty-label::before {
+  background: linear-gradient(90deg, transparent, rgba(0, 230, 118, 0.3));
+}
+
+.difficulty-label::after {
+  background: linear-gradient(90deg, rgba(0, 230, 118, 0.3), transparent);
+}
+
+.difficulty-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.difficulty-btn {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-left: 3px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.difficulty-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.difficulty-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.35);
+  border-left-color: rgba(255, 255, 255, 0.7);
+  color: #fff;
+}
+
+/* Per-difficulty accent colors */
+/* ── Easy — solid green ── */
+.diff-easy {
+  background: #00c853;
+  border: none;
+  border-left: 3px solid #00ff6a;
+  color: #fff;
+}
+.diff-easy:hover { background: #00b248; }
+.diff-easy.selected {
+  background: #00e676;
+  border-left-color: #fff;
+  color: #003300;
+  box-shadow: 0 0 18px rgba(0, 230, 118, 0.5);
+}
+
+/* ── Normal — solid blue ── */
+.diff-normal {
+  background: #0077cc;
+  border: none;
+  border-left: 3px solid #40c4ff;
+  color: #fff;
+}
+.diff-normal:hover { background: #0066bb; }
+.diff-normal.selected {
+  background: #40c4ff;
+  border-left-color: #fff;
+  color: #001a33;
+  box-shadow: 0 0 18px rgba(64, 196, 255, 0.5);
+}
+
+/* ── Hard — solid red ── */
+.diff-hard {
+  background: #cc2200;
+  border: none;
+  border-left: 3px solid #ff5252;
+  color: #fff;
+}
+.diff-hard:hover { background: #bb1f00; }
+.diff-hard.selected {
+  background: #ff5252;
+  border-left-color: #fff;
+  color: #330000;
+  box-shadow: 0 0 18px rgba(255, 82, 82, 0.5);
+}
+
+/* ── Nightmare — solid near-black ── */
+.diff-nightmare {
+  background: #1a001a;
+  border: 1px solid #e040fb;
+  border-left: 3px solid #e040fb;
+  color: #e040fb;
+}
+.diff-nightmare:hover { background: #2a002a; }
+.diff-nightmare.selected {
+  background: #e040fb;
+  border-left-color: #fff;
+  color: #1a001a;
+  box-shadow: 0 0 18px rgba(224, 64, 251, 0.5);
+}
+
+/* ═══════════════════════════════════════════════════
+   SINGLE MODE — Start Game Button (hidden → fade in)
+═══════════════════════════════════════════════════ */
+
+.start-game-btn {
+  display: none;
+  padding: 14px 52px;
+  font-size: 0.9rem;
+  letter-spacing: 0.25em;
+  min-width: 240px;
+  background: #00c853 !important;
+  border-color: #00ff6a !important;
+  color: #003300 !important;
+}
+
+.start-game-btn.visible {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  animation: fadeSlideUp 0.35s ease 0.1s both;
+}
+
+.start-game-btn:not(:disabled):hover {
+  background: #00e676 !important;
+  box-shadow: 0 0 24px rgba(0, 230, 118, 0.5) !important;
+}
+
+.start-game-btn:not(:disabled):active {
+  transform: scale(0.97);
+}
+
+.start-game-btn:disabled {
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
+  pointer-events: all;
+  filter: grayscale(0.5);
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.card-body-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  z-index: 1;
+  height: 100%;
+}
+
+.card-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.88rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  transition: color 0.3s ease;
+  text-align: center;
+}
+
+.mode-card:hover .card-label,
+.mode-card.card-active .card-label {
+  color: #fff;
 }

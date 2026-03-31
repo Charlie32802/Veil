@@ -16,12 +16,14 @@ const howToPlayModal = document.getElementById('howToPlayModal');
 
 const gameMenuView = document.getElementById('gameMenuView');
 const homeView = document.getElementById('homeView');
+const singleModeView = document.getElementById('singleModeView');
 
 const profileFrame = document.getElementById('profileFrame');
 const infoBtn = document.getElementById('infoBtn');
 const profileNameDisplay = document.getElementById('profileNameDisplay');
 
 const singleModeBtn = document.getElementById('singleModeBtn');
+const singleModeBackBtn = document.getElementById('singleModeBackBtn');
 const multiplayerBtn = document.getElementById('multiplayerBtn');
 const howToPlayBtn = document.getElementById('howToPlayBtn');
 const howToPlayBackBtn = document.getElementById('howToPlayBackBtn');
@@ -68,9 +70,70 @@ function enterGameMenu(username) {
 
 if (singleModeBtn) {
   singleModeBtn.addEventListener('click', () => {
-    showToast('Single Mode coming soon!', 'success');
+    if (gameMenuView) gameMenuView.classList.add('hidden');
+    if (profileFrame) profileFrame.classList.add('hidden');
+    if (infoBtn) infoBtn.classList.add('hidden');
+    if (settingsBtn) settingsBtn.classList.add('hidden');
+    if (singleModeView) singleModeView.classList.remove('hidden');
+    // Reset state on enter
+    resetSingleModeState();
   });
 }
+
+if (singleModeBackBtn) {
+  singleModeBackBtn.addEventListener('click', () => {
+    if (singleModeView) singleModeView.classList.add('hidden');
+    if (gameMenuView) gameMenuView.classList.remove('hidden');
+    if (profileFrame) profileFrame.classList.remove('hidden');
+    if (infoBtn) infoBtn.classList.remove('hidden');
+    if (settingsBtn) settingsBtn.classList.remove('hidden');
+  });
+}
+
+function resetSingleModeState() {
+  const cards = document.querySelectorAll('.mode-card');
+  cards.forEach(c => c.classList.remove('selected'));
+  const difficultySect = document.getElementById('difficultySect');
+  const startGameBtn = document.getElementById('startGameBtn');
+  const diffBtns = document.querySelectorAll('.difficulty-btn');
+  if (difficultySect) difficultySect.classList.remove('visible');
+  if (startGameBtn) {
+    startGameBtn.classList.remove('visible');
+    startGameBtn.disabled = true;
+  }
+  diffBtns.forEach(b => b.classList.remove('selected'));
+}
+
+// Card selection → show difficulty + disabled start game
+const modeCards = document.querySelectorAll('.mode-card');
+const difficultySect = document.getElementById('difficultySect');
+const startGameBtn = document.getElementById('startGameBtn');
+const diffBtns = document.querySelectorAll('.difficulty-btn');
+
+modeCards.forEach(card => {
+  card.addEventListener('click', () => {
+    modeCards.forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    if (difficultySect) difficultySect.classList.add('visible');
+    if (startGameBtn) {
+      startGameBtn.classList.add('visible');
+      startGameBtn.disabled = true;
+    }
+    diffBtns.forEach(b => b.classList.remove('selected'));
+  });
+});
+
+// Difficulty selection → enable start game
+diffBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    diffBtns.forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    if (startGameBtn) startGameBtn.disabled = false;
+  });
+});
+
+// Ensure hidden on page load
+resetSingleModeState();
 
 if (multiplayerBtn) {
   multiplayerBtn.addEventListener('click', () => {
@@ -212,22 +275,22 @@ async function handleGoogleToken(tokenResponse) {
     if (activeGmailLink) resetGmailLink();
     return;
   }
-  
+
   if (activeGmailLink) {
     activeGmailLink.innerHTML = `${currentGoogleAction === 'login' ? 'LOGGING IN...' : 'CREATING...'} <span class="btn-spinner" style="display:inline-block; width:13px; height:13px; margin-left:6px; border-width:2px; padding:0;"></span>`;
     activeGmailLink.style.pointerEvents = 'none';
-    
+
     // Disable the main form submit button to prevent double actions
     if (currentGoogleAction === 'login' && loginSubmitBtn) loginSubmitBtn.disabled = true;
     if (currentGoogleAction === 'signup' && signupSubmitBtn) signupSubmitBtn.disabled = true;
   }
 
   try {
-    const res = await apiFetch('/auth/google/', { 
+    const res = await apiFetch('/auth/google/', {
       access_token: tokenResponse.access_token,
       action: currentGoogleAction
     });
-    
+
     if (res.success) {
       if (res.new) {
         sessionStorage.setItem('veil_registered', '1');
@@ -250,7 +313,7 @@ async function handleGoogleToken(tokenResponse) {
 function resetGmailLink() {
   activeGmailLink.innerHTML = `${currentGoogleAction === 'login' ? 'Log in' : 'Sign up'} with Gmail ${defaultGmailIcon}`;
   activeGmailLink.style.pointerEvents = 'auto';
-  
+
   if (currentGoogleAction === 'login' && loginSubmitBtn) loginSubmitBtn.disabled = false;
   if (currentGoogleAction === 'signup' && signupSubmitBtn) signupSubmitBtn.disabled = false;
 }
@@ -399,3 +462,44 @@ if (logoutBtn) {
     clearLoading(logoutBtn, 'LOGOUT');
   });
 }
+/* ─── Single Mode: card selection + difficulty reveal ─── */
+(function () {
+  const modeCards = document.querySelectorAll('.mode-card');
+  const difficultySect = document.getElementById('difficultySect');
+  const startGameBtn = document.getElementById('startGameBtn');
+  const diffBtns = document.querySelectorAll('.difficulty-btn');
+
+  modeCards.forEach(card => {
+    card.addEventListener('click', () => {
+      // Toggle active card
+      modeCards.forEach(c => c.classList.remove('card-active'));
+      card.classList.add('card-active');
+
+      // Reveal difficulty + start button
+      if (difficultySect) difficultySect.classList.add('visible');
+      if (startGameBtn) startGameBtn.classList.add('visible');
+    });
+  });
+
+  // Difficulty selection
+  diffBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      diffBtns.forEach(b => b.classList.remove('active-diff'));
+      btn.classList.add('active-diff');
+    });
+  });
+
+  // Reset all single-mode state when leaving the view
+  const backBtn = document.getElementById('singleModeBackBtn');
+  if (backBtn) {
+    backBtn.addEventListener('click', () => {
+      modeCards.forEach(c => c.classList.remove('card-active'));
+      if (difficultySect) difficultySect.classList.remove('visible');
+      if (startGameBtn) startGameBtn.classList.remove('visible');
+      // Re-apply default difficulty highlight
+      diffBtns.forEach(b => b.classList.remove('active-diff'));
+      const defaultDiff = document.querySelector('.diff-normal');
+      if (defaultDiff) defaultDiff.classList.add('active-diff');
+    });
+  }
+})();
