@@ -11,11 +11,25 @@ const aboutBtn = document.getElementById('aboutBtn');
 const loginModal = document.getElementById('loginModal');
 const signupModal = document.getElementById('signupModal');
 const aboutModal = document.getElementById('aboutModal');
+const profileModal = document.getElementById('profileModal');
+const howToPlayModal = document.getElementById('howToPlayModal');
+
+const gameMenuView = document.getElementById('gameMenuView');
+const homeView = document.getElementById('homeView');
+
+const profileFrame = document.getElementById('profileFrame');
+const infoBtn = document.getElementById('infoBtn');
+const profileNameDisplay = document.getElementById('profileNameDisplay');
+
+const singleModeBtn = document.getElementById('singleModeBtn');
+const multiplayerBtn = document.getElementById('multiplayerBtn');
+const howToPlayBtn = document.getElementById('howToPlayBtn');
+const howToPlayBackBtn = document.getElementById('howToPlayBackBtn');
 
 const switchToSignup = document.getElementById('switchToSignup');
 const switchToLogin = document.getElementById('switchToLogin');
 
-const allModals = [settingsModal, loginModal, signupModal, aboutModal];
+const allModals = [settingsModal, loginModal, signupModal, aboutModal, profileModal, howToPlayModal];
 
 function openAnyModal(targetModal) {
   if (!targetModal) return;
@@ -43,6 +57,38 @@ function closeAllModals() {
   overlay.classList.remove('visible');
 }
 
+function enterGameMenu(username) {
+  if (profileNameDisplay) profileNameDisplay.textContent = username;
+  if (profileFrame) profileFrame.classList.remove('hidden');
+  if (infoBtn) infoBtn.classList.remove('hidden');
+  if (homeView) homeView.classList.add('hidden');
+  if (gameMenuView) gameMenuView.classList.remove('hidden');
+  closeAllModals();
+}
+
+if (singleModeBtn) {
+  singleModeBtn.addEventListener('click', () => {
+    showToast('Single Mode coming soon!', 'success');
+  });
+}
+
+if (multiplayerBtn) {
+  multiplayerBtn.addEventListener('click', () => {
+    window.location.href = '/menu/';
+  });
+}
+
+if (howToPlayBtn) {
+  howToPlayBtn.addEventListener('click', () => {
+    openAnyModal(howToPlayModal);
+  });
+}
+
+if (howToPlayBackBtn) {
+  howToPlayBackBtn.addEventListener('click', closeAllModals);
+}
+
+if (profileFrame) profileFrame.addEventListener('click', () => openAnyModal(profileModal));
 if (settingsBtn) settingsBtn.addEventListener('click', () => openAnyModal(settingsModal));
 if (loginBtn) loginBtn.addEventListener('click', () => openAnyModal(loginModal));
 if (signupBtn) signupBtn.addEventListener('click', () => openAnyModal(signupModal));
@@ -119,7 +165,22 @@ function clearLoading(btn, label) {
 }
 
 function getCsrf() {
-  return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, 10) === ('csrftoken=')) {
+        cookieValue = decodeURIComponent(cookie.substring(10));
+        break;
+      }
+    }
+  }
+  if (!cookieValue) {
+    const meta = document.querySelector('meta[name="csrf-token"]');
+    if (meta) cookieValue = meta.getAttribute('content');
+  }
+  return cookieValue;
 }
 
 async function apiFetch(url, data) {
@@ -172,9 +233,9 @@ async function handleGoogleToken(tokenResponse) {
         sessionStorage.setItem('veil_registered', '1');
         window.location.href = '/?modal=login';
       } else {
-        sessionStorage.setItem('veil_toast', `Welcome back, ${res.username}!`);
-        sessionStorage.setItem('veil_toast_type', 'success');
-        window.location.href = '/menu/';
+        showToast(`Welcome back, ${res.username}!`, 'success');
+        enterGameMenu(res.username);
+        if (activeGmailLink) resetGmailLink();
       }
     } else {
       showToast(res.error || 'Google auth failed.', 'error');
@@ -302,9 +363,9 @@ if (loginSubmitBtn) {
     try {
       const res = await apiFetch('/login/', { email, password });
       if (res.success) {
-        sessionStorage.setItem('veil_toast', `Welcome back, ${res.username}!`);
-        sessionStorage.setItem('veil_toast_type', 'success');
-        window.location.href = '/menu/';
+        showToast(`Welcome back, ${res.username}!`, 'success');
+        enterGameMenu(res.username);
+        clearLoading(loginSubmitBtn, 'LOGIN');
       } else {
         showToast(res.error || 'Login failed.', 'error');
         clearLoading(loginSubmitBtn, 'LOGIN');
@@ -313,5 +374,28 @@ if (loginSubmitBtn) {
       showToast('Network error. Please try again.', 'error');
       clearLoading(loginSubmitBtn, 'LOGIN');
     }
+  });
+}
+
+const logoutBtn = document.getElementById('logoutBtn');
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', async () => {
+    setLoading(logoutBtn, 'LOGGING OUT...');
+    try {
+      const res = await apiFetch('/logout/', {});
+      if (res.success) {
+        if (gameMenuView) gameMenuView.classList.add('hidden');
+        if (profileFrame) profileFrame.classList.add('hidden');
+        if (infoBtn) infoBtn.classList.add('hidden');
+        if (homeView) homeView.classList.remove('hidden');
+        closeAllModals();
+        showToast('Logged out successfully.', 'success');
+      } else {
+        showToast(res.error || 'Logout failed.', 'error');
+      }
+    } catch {
+      showToast('Network error on logout.', 'error');
+    }
+    clearLoading(logoutBtn, 'LOGOUT');
   });
 }

@@ -26,6 +26,20 @@
   <div class="digital-glow"></div>
   <div class="scanline"></div>
 
+  <div class="profile-frame hidden" id="profileFrame" style="cursor: pointer;">
+    <div class="profile-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+    </div>
+    <span id="profileNameDisplay"></span>
+  </div>
+
+  <button class="info-btn hidden" id="infoBtn" aria-label="Help">
+    ?
+  </button>
+
   <button class="settings-btn" id="settingsBtn" aria-label="Settings">
     <div class="gear-ping"></div>
     <div class="gear-ring"></div>
@@ -81,10 +95,11 @@
     </div>
   </div>
 
-  <header class="header">
-    <h1>VEIL<span>.</span></h1>
-    <p class="sub-text">Uncover the truth behind every click</p>
-  </header>
+  <div id="homeView" class="home-view">
+    <header class="header">
+      <h1>VEIL<span>.</span></h1>
+      <p class="sub-text">Uncover the truth behind every click</p>
+    </header>
 
   <nav class="menu">
     <div class="row">
@@ -143,6 +158,52 @@
       </button>
     </div>
   </nav>
+  </div>
+
+  <div id="gameMenuView" class="game-menu-view hidden">
+    <div class="game-menu-content">
+      <div class="modal-accent"></div>
+      <h2 class="game-title">VEIL<span class="dot">.</span></h2>
+      <div class="auth-form game-menu-buttons">
+        <button class="modal-btn" id="singleModeBtn">SINGLE MODE</button>
+        <button class="modal-btn" id="multiplayerBtn">MULTIPLAYER</button>
+        <button class="modal-btn" id="howToPlayBtn">HOW TO PLAY</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-modal centered-modal" id="howToPlayModal">
+    <div class="modal-accent"></div>
+    <div class="modal-header" style="justify-content: center; position: relative; margin-bottom: 24px;">
+      <button class="modal-close" id="howToPlayBackBtn" style="position: absolute; left: 0; top: 0; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; padding: 0; border: none; outline: none; transition: all 0.2s ease;" aria-label="Go Back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;">
+          <line x1="20" y1="12" x2="4" y2="12"></line>
+          <polyline points="10 18 4 12 10 6"></polyline>
+        </svg>
+      </button>
+      <div style="display: flex; flex-direction: column; align-items: center; margin-top: 4px;">
+        <span class="modal-title" style="font-size: 1.1rem; letter-spacing: 0.2em;">HOW TO PLAY</span>
+        <span style="font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-top: 6px; letter-spacing: 0.15em;">Coming soon</span>
+      </div>
+    </div>
+    <div class="controls-empty" style="height: 180px; border-color: rgba(0, 230, 118, 0.15);">
+      <span style="color: rgba(255, 255, 255, 0.3);">Tutorial pending...</span>
+    </div>
+  </div>
+
+  <div class="settings-modal profile-dropdown" id="profileModal">
+    <div class="modal-accent" style="background: linear-gradient(90deg, transparent, #ff1744, transparent);"></div>
+    <div class="modal-header">
+      <span class="modal-title" style="color: #ff1744;">Agent Profile</span>
+      <button class="modal-close modalCloseBtn">✕</button>
+    </div>
+    <div class="profile-stats">
+      <div class="controls-empty" style="border-color: rgba(255, 23, 68, 0.2);">
+        <span style="color: rgba(255, 255, 255, 0.4);">Details coming soon</span>
+      </div>
+    </div>
+    <button class="modal-btn" id="logoutBtn" style="width: 100%; margin-top: 24px; border-color: #ff1744; color: #ff1744; background: rgba(255, 23, 68, 0.1);" onmouseover="this.style.background='#ff1744'; this.style.color='#010830'; this.style.boxShadow='0 0 15px rgba(255, 23, 68, 0.4)';" onmouseout="this.style.background='rgba(255, 23, 68, 0.1)'; this.style.color='#ff1744'; this.style.boxShadow='none';">LOGOUT</button>
+  </div>
 
   <div class="settings-modal centered-modal" id="loginModal">
     <div class="modal-accent"></div>
